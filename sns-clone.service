@@ -1,0 +1,16 @@
+[Unit]
+Description=SNS Clone Go Application
+After=network.target
+
+[Service]
+Type=simple
+
+WorkingDirectory=/srv/sns-clone
+EnvironmentFile=/srv/sns-clone/.env
+ExecStart=/srv/sns-clone/sns-clone
+
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

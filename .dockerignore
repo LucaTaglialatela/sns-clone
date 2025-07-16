@@ -1,0 +1,21 @@
+# Git, OS, and IDE files
+.git
+.DS_Store
+.idea/
+.vscode/
+
+# Local dependencies - these MUST be installed inside the container
+# This is the most important rule for your issue.
+node_modules
+/frontend/node_modules
+
+# Local build artifacts - the container will create its own
+/dist
+/build
+/frontend/dist
+
+# Environment and log files
+.env
+.env.local
+*.env
+npm-debug.log*

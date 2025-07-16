@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack
+    restart: always
+    ports:
+      - '4566:4566' # LocalStack Gateway
+      - '4510-4559:4510-4559' # external services port range
+    environment:
+      - SERVICES=dynamodb,s3
+      - PERSISTENCE=1
+    volumes:
+      - '${LOCALSTACK_VOLUME_DIR:-./.data/localstack}:/var/lib/localstack'
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    init: true
+    restart: always
+    depends_on:
+      - localstack
+    environment:
+      DYNAMO_ENDPOINT: http://localstack:4566
+      AWS_REGION: ${AWS_REGION}
+    ports:
+      - '7890:8001'

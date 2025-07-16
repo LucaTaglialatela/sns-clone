@@ -1,0 +1,20 @@
+[Unit]
+Description=Caddy Web Server
+Documentation=https://caddyserver.com/docs/
+After=network.target network-online.target
+
+Requires=sns-clone.service
+After=sns-clone.service
+
+[Service]
+WorkingDirectory=/etc/caddy/
+
+ExecStart=/usr/bin/caddy run --environ --config /etc/caddy/Caddyfile
+ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile --force
+
+LimitNOFILE=524288
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
